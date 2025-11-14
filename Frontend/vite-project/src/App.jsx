@@ -77,7 +77,7 @@ import { Doctors } from "./pages/Doctors";
 import Login from "./pages/Login";
 import Signup from "./pages/signup";
 import About from "./pages/About";
-import Contact from "./pages/contact";
+import Contact from "./pages/Contact";
 import Myprofile from "./pages/Myprofile";
 import Myappoinment from "./pages/MyAppoinments";
 import Appointment from "./pages/Appointment";
