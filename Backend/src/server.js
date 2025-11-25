@@ -151,11 +151,12 @@
 // **************************************************************************************************************
 
 require('dotenv').config();
-const PORT = process.env.PORT || 1234;
+const PORT = process.env.PORT ;
 const express = require("express");
 const app = express();
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+const contactRouter = require("./routes/contact");
 
 // 🧩 Import custom modules
 const { ConnectMongoDB } = require("./config/database");
@@ -168,18 +169,7 @@ const { userRouter } = require("./routes/user");
 const { RequestRouter } = require("./routes/Request");
 const { appointmentRouter } = require("./routes/appointmentRoutes");
 
-// ✅ CORS FIX: Allow all required frontend origins
-// app.use(
-//   cors({
-//     origin: [
-//       "http://localhost:5173", // Frontend (User Portal)
-//       "http://localhost:5188", // Admin Portal
-//       "http://localhost:3000"  // Optional: Doctor Portal (if added later)
-//     ],
-//     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-//     credentials: true,
-//   })
-// );
+
 app.use(
   cors({
     origin: [
@@ -209,6 +199,9 @@ app.use("/api/admin", adminRouter);
 app.use("/api/doctor", doctorRouter);
 app.use("/api/user", userRouter);
 app.use("/api/requests", RequestRouter);
+app.use("/api/contact", contactRouter);
+// app.use("/api/user", require("./routes/userRoutes"));
+
 
 // ✅ Connect MongoDB and Start Server
 ConnectMongoDB()
@@ -219,3 +212,55 @@ ConnectMongoDB()
   .catch((error) => {
     console.log(`❌ MongoDB Connection Error: ${error}`);
   });
+
+
+// *********************************versel*************
+// require('dotenv').config();
+// const PORT = process.env.PORT;   // Render will provide PORT
+// const express = require("express");
+// const app = express();
+// const cookieParser = require("cookie-parser");
+// const cors = require("cors");
+
+// const { ConnectMongoDB } = require("./config/database");
+// const { connectCloudinary } = require("./config/cloudnary");
+
+// const { adminRouter } = require("./routes/admin");
+// const { doctorRouter } = require("./routes/doctor");
+// const { userRouter } = require("./routes/user");
+// const { RequestRouter } = require("./routes/Request");
+// const { appointmentRouter } = require("./routes/appointmentRoutes");
+
+// // Production CORS (recommended later)
+// app.use(
+//   cors({
+//     origin: [
+//       // "http://localhost:5173",
+//       "https://smart-care-ruby.vercel.app"
+//     ],
+//     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+//     credentials: true,
+//   })
+// );
+
+// app.use(express.json());
+// app.use(cookieParser());
+
+// connectCloudinary().catch(error => {
+//   console.error(`Cloudinary connection error: ${error}`);
+// });
+
+// app.use("/api/appointments", appointmentRouter);
+// app.use("/api/admin", adminRouter);
+// app.use("/api/doctor", doctorRouter);
+// app.use("/api/user", userRouter);
+// app.use("/api/requests", RequestRouter);
+
+// ConnectMongoDB()
+//   .then(() => {
+//     console.log("✅ DB Connected Successfully!");
+//     app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+//   })
+//   .catch(error => {
+//     console.log(`❌ MongoDB Error: ${error}`);
+//   });

@@ -86,6 +86,7 @@ import { Footer } from "./components/Footer";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AppContextProvider from "./context/AppContext";
 
+
 const App = () => {
   return (
     <AppContextProvider>
@@ -129,7 +130,7 @@ const App = () => {
           }
         />
         <Route
-          path="/myprofile"
+          path="/my-profile"
           element={
             <ProtectedRoute>
               <Myprofile />

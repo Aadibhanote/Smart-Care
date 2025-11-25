@@ -425,54 +425,37 @@ userRouter.post("/logout", userAuthMiddlware, async (req, res) => {
 });
 
 // ✅ View profile
-userRouter.get("/viewProfile", userAuthMiddlware, async (req, res) => {
+userRouter.get("/profile", userAuthMiddlware, async (req, res) => {
   try {
-    const loggedInUser = req.user.toObject();
-    delete loggedInUser.password;
-    return res.status(200).json({ success: true, user: loggedInUser });
-  } catch (error) {
-    return res.status(400).json({ success: false, message: error.message });
-  }
-});
+    const user = await UserModel.findById(req.user._id).select("-password");
 
-// ✅ Edit profile
-userRouter.patch("/editProfile", userAuthMiddlware, async (req, res) => {
-  try {
-    if (!validEditData(req)) {
-      return res.status(403).json({ message: "Editing restricted for some fields!" });
+    if (!user) {
+      return res.status(404).json({ success: false, message: "User not found" });
     }
 
-    const loggedInUser = req.user;
-    Object.keys(req.body).forEach((key) => {
-      loggedInUser[key] = req.body[key];
-    });
-
-    await loggedInUser.save();
-    return res.status(200).json({ message: "Profile updated successfully!" });
-  } catch (error) {
-    return res.status(400).json({ message: error.message });
+    res.json({ success: true, user });
+  } 
+  catch (err) {
+    res.status(500).json({ success: false, message: "Server error" });
   }
 });
-
-// ✅ Edit password
-userRouter.patch("/editPassword", userAuthMiddlware, async (req, res) => {
+userRouter.put("/profile", userAuthMiddlware, async (req, res) => {
   try {
-    const { oldPass, newPass } = req.body;
-    const user = req.user;
+    const updatedUser = await UserModel.findByIdAndUpdate(
+      req.user._id,
+      req.body,
+      { new: true }
+    ).select("-password");
 
-    const isValid = await user.validatePassword(oldPass);
-    if (!isValid)
-      return res.status(403).json({ message: "Incorrect old password!" });
-
-    const hashPassword = await bcrypt.hash(newPass, 10);
-    user.password = hashPassword;
-    await user.save();
-
-    return res.status(200).json({ message: "Password updated successfully!" });
-  } catch (error) {
-    return res.status(400).json({ message: error.message });
+    res.json({ success: true, user: updatedUser });
+  }
+  catch (err) {
+    res.status(500).json({ success: false, message: "Server error" });
   }
 });
+
+
+
 
 // ✅ Book appointment
 userRouter.post("/bookAppointment", userAuthMiddlware, async (req, res) => {

@@ -1,0 +1,339 @@
+/* My Profile Page Styles */
+.profile-container {
+  /* min-height: 100vh; */
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 15px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.profile-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 100%;
+  max-width: 450px;
+  animation: slideUp 0.6s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.profile-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.profile-header h1 {
+  color: #2d3748;
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0 0 4px 0;
+}
+
+.profile-header p {
+  color: #718096;
+  font-size: 13px;
+  margin: 0;
+}
+
+.profile-content {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Profile Image Section */
+.profile-image-section {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.image-wrapper {
+  position: relative;
+  width: 100px;
+  height: 100px;
+}
+
+.profile-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #667eea;
+  box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.profile-image:hover {
+  transform: scale(1.05);
+}
+
+.image-upload-label {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease;
+}
+
+.image-upload-label:hover {
+  transform: scale(1.1);
+}
+
+.image-input {
+  display: none;
+}
+
+.upload-icon {
+  font-size: 16px;
+}
+
+/* Profile Information */
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px;
+  background: #f7fafc;
+  border-radius: 8px;
+  border-left: 3px solid #667eea;
+  transition: all 0.3s ease;
+}
+
+.info-item:hover {
+  background: #edf2f7;
+  transform: translateX(3px);
+}
+
+.info-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #4a5568;
+  font-weight: 600;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.info-icon {
+  font-size: 14px;
+}
+
+.info-value {
+  color: #2d3748;
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+/* Edit Mode Styles */
+.info-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.info-group label {
+  color: #4a5568;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.info-input {
+  padding: 8px 12px;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  background: white;
+  font-family: inherit;
+}
+
+.info-input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.info-input select {
+  cursor: pointer;
+}
+
+/* Buttons */
+.edit-button,
+.save-button,
+.cancel-button {
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  margin-top: 8px;
+}
+
+.edit-button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  width: 100%;
+}
+
+.edit-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+}
+
+.action-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.save-button {
+  flex: 1;
+  background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+  color: white;
+}
+
+.save-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(72, 187, 120, 0.3);
+}
+
+.cancel-button {
+  flex: 1;
+  background: #e2e8f0;
+  color: #4a5568;
+}
+
+.cancel-button:hover {
+  background: #cbd5e0;
+  transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .profile-container {
+    padding: 10px;
+  }
+  
+  .profile-card {
+    padding: 15px;
+    border-radius: 10px;
+  }
+  
+  .profile-header h1 {
+    font-size: 20px;
+  }
+  
+  .profile-image {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .image-wrapper {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .image-upload-label {
+    width: 28px;
+    height: 28px;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+  }
+  
+  .save-button,
+  .cancel-button {
+    width: 100%;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .profile-card {
+    background: #1a202c;
+    color: white;
+  }
+  
+  .profile-header h1 {
+    color: #f7fafc;
+  }
+  
+  .profile-header p {
+    color: #a0aec0;
+  }
+  
+  .info-item {
+    background: #2d3748;
+    border-left-color: #667eea;
+  }
+  
+  .info-item:hover {
+    background: #374151;
+  }
+  
+  .info-label {
+    color: #e2e8f0;
+  }
+  
+  .info-value {
+    color: #f7fafc;
+  }
+  
+  .info-group label {
+    color: #e2e8f0;
+  }
+  
+  .info-input {
+    background: #2d3748;
+    border-color: #4a5568;
+    color: white;
+  }
+  
+  .info-input:focus {
+    background: #2d3748;
+  }
+  
+  .cancel-button {
+    background: #4a5568;
+    color: #e2e8f0;
+  }
+  
+  .cancel-button:hover {
+    background: #5a6578;
+  }
+}
+
