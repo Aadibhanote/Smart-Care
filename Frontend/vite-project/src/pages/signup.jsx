@@ -130,7 +130,8 @@ const handleSubmit = async (e) => {
     //   credentials: "include", // ✅ allows cookies for JWT
     // });
     // http://localhost:8989/api/user/signup
-  const response = await fetch("https://smart-care-v04m.onrender.com/api/user/login", {
+    // https://smart-care-v04m.onrender.com/api/user/signup
+  const response = await fetch("http://localhost:8989/api/user/signup", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify({

@@ -339,6 +339,8 @@ const appointmentModel = require("../../models/appointment");
 
 const { validateUserdata, validEditData } = require("../../utils/validation");
 const { userAuthMiddlware } = require("../../middlewares/userMiddleware");
+const Donation = require("../../models/donation");
+
 
 // ✅ Public route: Fetch all available doctors
 userRouter.get("/doctors", async (req, res) => {
@@ -556,7 +558,56 @@ userRouter.get("/appointment", userAuthMiddlware, async (req, res) => {
     return res.status(400).json({ message: error.message });
   }
 });
+//  Donate
 
+userRouter.post(
+  "/registerDonation",
+  userAuthMiddlware,
+  async (req, res) => {
+    try {
+      const donation = new Donation({
+        userId: req.user._id, // coming from middleware
+        ...req.body,
+      });
+
+      await donation.save();
+
+      return res.status(201).json({
+        success: true,
+        message: "Donation registered successfully",
+        donation,
+      });
+    } catch (error) {
+      console.error("Donation Error:", error);
+
+      return res.status(400).json({
+        success: false,
+        message: error.message,
+        errors: error.errors || null,
+      });
+    }
+  }
+);
+
+// Donations
+// Get all available donations (for all users)
+userRouter.get("/donations", userAuthMiddlware, async (req, res) => {
+  try {
+    const donations = await Donation.find({ available: true })
+      .sort({ createdAt: -1 });
+
+    res.status(200).json({
+      success: true,
+      donations,
+    });
+  } catch (error) {
+    console.error("Fetch Donations Error:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to fetch donations",
+    });
+  }
+});
 
 
 

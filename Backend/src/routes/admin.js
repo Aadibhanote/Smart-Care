@@ -256,6 +256,7 @@
 
 
 // ***************************************
+
 const express = require("express");
 const adminRouter = express.Router();
 const bcrypt = require("bcrypt");
@@ -266,6 +267,8 @@ const { validateDoctorAddData } = require("../../utils/validation");
 const { adminMiddlewareRouter } = require("../../middlewares/adminMiddleware");
 const { appointmentModel } = require("../../models/appointment");
 const { UserModel } = require("../../models/user");
+const Donation  = require("../../models/donation");
+
 
 
 // ======================= ADMIN LOGIN =======================
@@ -417,17 +420,21 @@ adminRouter.patch("/cancelAppointment/:appointmentId", adminMiddlewareRouter, as
 
 
 // ======================= DASHBOARD DATA =======================
-adminRouter.get("/dashData", adminMiddlewareRouter, async (req, res) => {
+adminRouter.get("/", adminMiddlewareRouter, async (req, res) => {
   try {
+      // console.log("Donation model:", Donation);
     const doctors = await DoctorModel.find({});
     const users = await UserModel.find({});
     const appointments = await appointmentModel.find({});
+    const donations = await Donation.find({});  // ❗ Donation is not imported
 
     const data = {
       doctors: doctors.length,
       users: users.length,
       appointments: appointments.length,
+      donations: donations.length,
       latestAppointments: appointments.reverse().slice(0, 5),
+      latestDonations: donations.reverse().slice(0, 5),
     };
 
     return res.json({ data });
@@ -438,4 +445,9 @@ adminRouter.get("/dashData", adminMiddlewareRouter, async (req, res) => {
 });
 
 
+
+
 module.exports = { adminRouter };
+// models/donation.js
+// 
+

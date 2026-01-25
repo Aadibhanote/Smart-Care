@@ -85,6 +85,9 @@ import Navbar from "./components/Navbar";
 import { Footer } from "./components/Footer";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AppContextProvider from "./context/AppContext";
+import Donate from "./pages/Donate";
+import Donations from "./pages/Donations";
+import MyDonations from "./pages/MyDonations";
 
 
 const App = () => {
@@ -96,11 +99,13 @@ const App = () => {
       <Navbar />
 
       <Routes>
-        {/* ✅ Public Routes */}
+        {/* ✅ Public Routes */} 
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
+        {/* <Route path="/donate" element={<Donate />} /> */}
+       {/* <Route path="/donations" element={<Donations />} /> */}
 
         {/* ✅ Home should be visible ONLY after login */}
         <Route
@@ -121,6 +126,7 @@ const App = () => {
             </ProtectedRoute>
           }
         />
+        
         <Route
           path="/doctors/:speciality"
           element={
@@ -153,6 +159,34 @@ const App = () => {
             </ProtectedRoute>
           }
         />
+        {/* 🩸 Donation Routes (Protected) */}
+<Route
+  path="/donate"
+  element={
+    <ProtectedRoute>
+      <Donate />
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/donations"
+  element={
+    <ProtectedRoute>
+      <Donations />
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/my-donations"
+  element={
+    <ProtectedRoute>
+      <MyDonations />
+    </ProtectedRoute>
+  }
+/>
+
       </Routes>
 
       <Footer />

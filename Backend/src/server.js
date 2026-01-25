@@ -169,12 +169,19 @@ const { userRouter } = require("./routes/user");
 const { RequestRouter } = require("./routes/Request");
 const { appointmentRouter } = require("./routes/appointmentRoutes");
 
+// console.log("adminRouter:", adminRouter);
+// console.log("doctorRouter:", doctorRouter);
+// console.log("userRouter:", userRouter);
+// console.log("RequestRouter:", RequestRouter);
+// console.log("appointmentRouter:", appointmentRouter);
 
 app.use(
   cors({
     origin: [
       "http://localhost:5173", // user portal
+      //  "https://smart-care-ruby.vercel.app",  //versal frontend
       "http://localhost:5188", // admin
+      //  "https://smart-care-ruby.vercel.app",
       "http://localhost:3000"  // doctor portal
     ],
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
@@ -192,7 +199,7 @@ app.use(cookieParser());
 connectCloudinary().catch((error) => {
   console.error(`Cloudinary connection error: ${error}`);
 });
-
+app.use(express.urlencoded({ extended: true }));
 // ✅ Mount routes
 app.use("/api/appointments", appointmentRouter);
 app.use("/api/admin", adminRouter);

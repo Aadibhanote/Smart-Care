@@ -154,8 +154,11 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { AppContext } from '../context/AppContext';
 import { assets } from '../assets/assets/assets';
+import { useNavigate } from "react-router-dom";
+
 
 // Helper function (assuming you place it right here or import it)
+
 const formatDate = (date) => {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -166,6 +169,7 @@ const formatDate = (date) => {
 function Appointment() {
     const { docId } = useParams();
     // const { id } = useParams();
+     const navigate = useNavigate();
 
     const { doctors, currenySymbol } = useContext(AppContext);
     
@@ -265,11 +269,14 @@ const response = await fetch("http://localhost:8989/api/user/bookAppointment", {
 
 
     // ✅ Step 4: Parse response
+   
+
     const data = await response.json();
     console.log("📥 API Response:", data);
 
     if (response.ok && data.success) {
       alert("✅ Appointment booked successfully!");
+         navigate("/my-appointments"); 
     } else {
       alert(`❌ ${data.message || "Failed to book appointment."}`);
     }

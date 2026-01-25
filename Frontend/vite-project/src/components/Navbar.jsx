@@ -110,6 +110,18 @@ function Navbar() {
         <NavLink to="/doctors"><li className="py-4">ALL DOCTORS</li></NavLink>
         <NavLink to="/about"><li className="py-4">ABOUT</li></NavLink>
         <NavLink to="/contact"><li className="py-4">CONTACT</li></NavLink>
+       {token && (
+        <>
+  <NavLink to="/donate">
+    <li className="py-4">DONATE</li>
+  </NavLink>
+  <NavLink to="/donations">
+        <li className="py-4">DONATIONS AVAILABLE</li>
+      </NavLink>
+        </>
+  
+)}
+
       </ul>
 
       <div className="flex items-center gap-4">
@@ -121,6 +133,20 @@ function Navbar() {
               <div className="min-w-48 bg-stone-50 rounded flex flex-col gap-4 p-4">
                 <p onClick={() => navigate("/my-profile")} className="hover:text-black cursor-pointer">My Profile</p>
                 <p onClick={() => navigate("/my-appointments")} className="hover:text-black cursor-pointer">My Appointments</p>
+               <p  onClick={() => navigate("/my-donations")}
+  className="hover:text-black cursor-pointer"
+>
+  My Donation
+</p>
+
+
+<p
+  onClick={() => navigate("/donations")}
+  className="hover:text-black cursor-pointer"
+>
+  View Donations
+</p>
+
                 <p onClick={handleLogout} className="hover:text-black cursor-pointer">Logout</p>
               </div>
             </div>
