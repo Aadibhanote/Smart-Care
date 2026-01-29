@@ -36,6 +36,7 @@
   import AddDoctor from "./pages/Admin/AddDoctor";
   import DocList from "./pages/Admin/DocList";
   import Dashboard from "./pages/Admin/Dashboard";
+  import Donations from "./pages/Admin/Donations";
   
 
   function App() {
@@ -53,6 +54,8 @@
 
           <Route path="/add-doctor" element={<AddDoctor/>} />
           <Route path="/doctor-list" element={<DocList />} />
+          <Route path="/donations" element={<Donations />} />
+
         </Routes>
       </div>
     </div>

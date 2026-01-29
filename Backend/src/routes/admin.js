@@ -265,7 +265,7 @@ const jwt = require("jsonwebtoken");
 const { DoctorModel } = require("../../models/doctor");
 const { validateDoctorAddData } = require("../../utils/validation");
 const { adminMiddlewareRouter } = require("../../middlewares/adminMiddleware");
-const { appointmentModel } = require("../../models/appointment");
+const  appointmentModel  = require("../../models/appointment");
 const { UserModel } = require("../../models/user");
 const Donation  = require("../../models/donation");
 
@@ -422,11 +422,15 @@ adminRouter.patch("/cancelAppointment/:appointmentId", adminMiddlewareRouter, as
 // ======================= DASHBOARD DATA =======================
 adminRouter.get("/", adminMiddlewareRouter, async (req, res) => {
   try {
-      // console.log("Donation model:", Donation);
+    // console.log("DoctorModel:", DoctorModel);
+    // console.log("UserModel:", UserModel);
+    // console.log("appointmentModel:", appointmentModel);
+    // console.log("Donation:", Donation);
+
     const doctors = await DoctorModel.find({});
     const users = await UserModel.find({});
     const appointments = await appointmentModel.find({});
-    const donations = await Donation.find({});  // ❗ Donation is not imported
+    const donations = await Donation.find({});
 
     const data = {
       doctors: doctors.length,
@@ -438,11 +442,22 @@ adminRouter.get("/", adminMiddlewareRouter, async (req, res) => {
     };
 
     return res.json({ data });
-
   } catch (error) {
+    console.error("Dashboard Error:", error);
     return res.status(500).json({ Error: error.message });
   }
 });
+
+adminRouter.get("/donations", adminMiddlewareRouter, async (req, res) => {
+  try {
+    const donations = await Donation.find({}).sort({ date: -1 });
+    return res.json({ data: donations });
+  } catch (err) {
+    return res.status(500).json({ message: err.message });
+  }
+});
+
+
 
 
 

@@ -17,7 +17,9 @@ useEffect(() => {
   const fetchStats = async () => {
     try {
       const res = await fetch("http://localhost:8989/api/admin/", {
-        credentials: "include",
+        headers: {
+          Authorization: `Bearer ${aToken}`,
+        },
       });
 
       if (!res.ok) {
@@ -25,14 +27,16 @@ useEffect(() => {
       }
 
       const json = await res.json();
+      console.log("Dashboard API response:", json);
       setStats(json.data);
     } catch (err) {
       console.error("Failed to fetch stats", err);
     }
   };
 
-  fetchStats();
-}, []);
+  if (aToken) fetchStats();
+}, [aToken]);
+
 
 
   return (
