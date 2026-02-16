@@ -5,13 +5,15 @@ function MyAppointments() {
 
   const fetchAppointments = async () => {
     try {
-      const response = await fetch("http://localhost:8989/api/user/appointment", {
+      `${import.meta.env.VITE_BACKEND_URL}/api/user/login`
+      // "http://localhost:8989/api/user/appointment"
+      const response = await fetch( `${import.meta.env.VITE_BACKEND_URL}/api/user/appointment`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("userToken")}`,
         },
       });
-
+    
       const data = await response.json();
       console.log("Appointments:", data);
 

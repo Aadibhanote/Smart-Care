@@ -151,7 +151,7 @@
 // **************************************************************************************************************
 
 require('dotenv').config();
-const PORT = process.env.PORT ;
+const PORT = process.env.PORT || 8989 ;
 const express = require("express");
 const app = express();
 const cookieParser = require("cookie-parser");
@@ -178,10 +178,10 @@ const { appointmentRouter } = require("./routes/appointmentRoutes");
 app.use(
   cors({
     origin: [
-      // "http://localhost:5173", // user portal
-       "https://smart-care-ruby.vercel.app",  //versal frontend
-      // "http://localhost:5188", // admin
-       "https://smart-care-ruby.vercel.app",
+      "http://localhost:5173", // user portal
+      //  "https://smart-care-ruby.vercel.app",  //versal frontend
+      "http://localhost:5188", // admin
+      //  "https://smart-care-ruby.vercel.app",
       "http://localhost:3000"  // doctor portal
     ],
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
@@ -219,6 +219,7 @@ ConnectMongoDB()
   .catch((error) => {
     console.log(`❌ MongoDB Connection Error: ${error}`);
   });
+  module.exports=app;
 
 
 // *********************************versel*************
