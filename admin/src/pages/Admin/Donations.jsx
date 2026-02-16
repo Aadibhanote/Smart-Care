@@ -8,7 +8,9 @@ const Donations = () => {
   useEffect(() => {
     const fetchDonations = async () => {
       try {
-        const res = await fetch("http://localhost:8989/api/admin/donations", {
+        // 
+        // "http://localhost:8989/api/admin/donations"
+        const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/admin/donations`, {
           headers: {
             Authorization: `Bearer ${aToken}`,
           },

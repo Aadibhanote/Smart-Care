@@ -79,7 +79,8 @@ function Navbar() {
   const handleLogout = async () => {
     try {
       // 1️⃣ Call backend to clear cookie
-      await fetch("http://localhost:8989/api/user/logout", {
+      // ${import.meta.env.VITE_BACKEND_URL}/api/admin/donations
+      await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/admin/donations`, {
         method: "POST",
         credentials: "include",
       });
