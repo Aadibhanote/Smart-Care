@@ -7,7 +7,7 @@ function MyAppointments() {
     try {
       `${import.meta.env.VITE_BACKEND_URL}/api/user/login`
       // "http://localhost:8989/api/user/appointment"
-      const response = await fetch( `${import.meta.env.VITE_BACKEND_URL}/api/user/appointment`, {
+      const response = await fetch( "http://localhost:8989/api/user/appointment", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("userToken")}`,

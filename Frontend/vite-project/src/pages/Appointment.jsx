@@ -261,7 +261,7 @@ const bookingData = {
   
     // http://localhost:8989/api/user/bookAppointment
 
-const response = await fetch(  `${import.meta.env.VITE_BACKEND_URL}/api/user/bookAppointment`, {
+const response = await fetch(  "http://localhost:8989/api/user/bookAppointment", {
   method: "POST",
   headers: {
     "Content-Type": "application/json",

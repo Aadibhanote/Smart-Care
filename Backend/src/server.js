@@ -178,6 +178,7 @@ const { appointmentRouter } = require("./routes/appointmentRoutes");
 app.use(
   cors({
     origin: [
+      // "https:smart-care-two.vercel.app"
       "http://localhost:5173", // user portal
       //  "https://smart-care-ruby.vercel.app",  //versal frontend
       "http://localhost:5188", // admin

@@ -80,7 +80,7 @@ function Navbar() {
     try {
       // 1️⃣ Call backend to clear cookie
       // ${import.meta.env.VITE_BACKEND_URL}/api/admin/donations
-      await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/admin/donations`, {
+      await fetch("http://localhost:8989/api/admin/donations", {
         method: "POST",
         credentials: "include",
       });

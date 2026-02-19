@@ -36,7 +36,7 @@ const Donations = () => {
         const token = localStorage.getItem("userToken");
         const response = await fetch(
           // http://localhost:8989/api/user/donations
-         `${import.meta.env.VITE_BACKEND_URL}/api/user/donations`,
+        "http://localhost:8989/api/user/donations",
           {
             method: "GET",
             headers: {

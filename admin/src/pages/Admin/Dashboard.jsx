@@ -16,6 +16,7 @@ const Dashboard = () => {
 useEffect(() => {
   const fetchStats = async () => {
     try {
+      `${import.meta.env.VITE_BACKEND_URL}/api/admin/donations`
       const res = await fetch("http://localhost:8989/api/admin/", {
         headers: {
           Authorization: `Bearer ${aToken}`,

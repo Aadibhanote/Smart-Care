@@ -70,7 +70,7 @@ const handleTypeSelect = (type) => {
       };
  
   // "http://localhost:8989/api/user/registerDonation"
-      const response = await fetch( `${import.meta.env.VITE_BACKEND_URL}/api/user/registerDonation`, {
+      const response = await fetch( "http://localhost:8989/api/user/registerDonation ", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
