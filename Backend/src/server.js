@@ -179,11 +179,12 @@ app.use(
   cors({
     origin: [
       // "https:smart-care-two.vercel.app"
-      "http://localhost:5173", // user portal
-      //  "https://smart-care-ruby.vercel.app",  //versal frontend
-      "http://localhost:5188", // admin
+      // "http://localhost:5173", // user portal
+      "https://smart-care-q7xe.onrender.com",
+       "https://smart-care-ruby.vercel.app",  //versal frontend
+      // "http://localhost:5188", // admin
       //  "https://smart-care-ruby.vercel.app",
-      "http://localhost:3000"  // doctor portal
+      // "http://localhost:3000"  // doctor portal
     ],
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
     credentials: true, // ✅ allow cookies + auth headers
