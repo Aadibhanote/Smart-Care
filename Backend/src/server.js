@@ -176,16 +176,20 @@ const { appointmentRouter } = require("./routes/appointmentRoutes");
 // console.log("appointmentRouter:", appointmentRouter);
 
 // Build allowed origins list: always include localhost for dev,
-// plus any production URLs added via ALLOWED_ORIGINS env var (comma-separated)
+// Vercel production URLs + any extra URLs via ALLOWED_ORIGINS env var (comma-separated)
 const devOrigins = [
   "http://localhost:5173", // user portal
   "http://localhost:5188", // admin panel
   "http://localhost:3000",  // doctor portal
 ];
-const prodOrigins = process.env.ALLOWED_ORIGINS
+const vercelOrigins = [
+  "https://smart-care-frontend-sooty.vercel.app", // user portal (Vercel)
+  "https://smart-care-admin-pink.vercel.app",      // admin panel (Vercel)
+];
+const extraOrigins = process.env.ALLOWED_ORIGINS
   ? process.env.ALLOWED_ORIGINS.split(",").map((o) => o.trim())
   : [];
-const allowedOrigins = [...devOrigins, ...prodOrigins];
+const allowedOrigins = [...devOrigins, ...vercelOrigins, ...extraOrigins];
 
 app.use(
   cors({
