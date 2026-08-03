@@ -175,17 +175,28 @@ const { appointmentRouter } = require("./routes/appointmentRoutes");
 // console.log("RequestRouter:", RequestRouter);
 // console.log("appointmentRouter:", appointmentRouter);
 
+// Build allowed origins list: always include localhost for dev,
+// plus any production URLs added via ALLOWED_ORIGINS env var (comma-separated)
+const devOrigins = [
+  "http://localhost:5173", // user portal
+  "http://localhost:5188", // admin panel
+  "http://localhost:3000",  // doctor portal
+];
+const prodOrigins = process.env.ALLOWED_ORIGINS
+  ? process.env.ALLOWED_ORIGINS.split(",").map((o) => o.trim())
+  : [];
+const allowedOrigins = [...devOrigins, ...prodOrigins];
+
 app.use(
   cors({
-    origin: [
-      // "https:smart-care-two.vercel.app"
-      // "http://localhost:5173", // user portal
-      "https://smart-care-q7xe.onrender.com",
-       "https://smart-care-ruby.vercel.app",  //versal frontend
-      // "http://localhost:5188", // admin
-      //  "https://smart-care-ruby.vercel.app",
-      // "http://localhost:3000"  // doctor portal
-    ],
+    origin: function (origin, callback) {
+      // Allow requests with no origin (e.g. curl, Postman, server-to-server)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+      return callback(new Error(`CORS policy: origin ${origin} not allowed`));
+    },
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
     credentials: true, // ✅ allow cookies + auth headers
     allowedHeaders: ["Content-Type", "Authorization"], // ✅ allow JWT headers
