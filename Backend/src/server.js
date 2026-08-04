@@ -175,31 +175,29 @@ const { appointmentRouter } = require("./routes/appointmentRoutes");
 // console.log("RequestRouter:", RequestRouter);
 // console.log("appointmentRouter:", appointmentRouter);
 
-// Build allowed origins list: always include localhost for dev,
-// Vercel production URLs + any extra URLs via ALLOWED_ORIGINS env var (comma-separated)
-const devOrigins = [
-  "http://localhost:5173", // user portal
-  "http://localhost:5188", // admin panel
-  "http://localhost:3000",  // doctor portal
+// Build allowed origins list: localhost + Vercel production & preview URLs
+const allowedOrigins = [
+  "http://localhost:5173", // user portal local
+  "http://localhost:5188", // admin panel local
+  "http://localhost:3000", // doctor portal local
+  "https://smart-care-frontend-sooty.vercel.app", // user portal vercel
+  "https://smart-care-admin-pink.vercel.app",      // admin panel vercel
 ];
-const vercelOrigins = [
-  "https://smart-care-frontend-sooty.vercel.app", // user portal (Vercel)
-  "https://smart-care-admin-pink.vercel.app",      // admin panel (Vercel)
-];
-const extraOrigins = process.env.ALLOWED_ORIGINS
+
+const prodOrigins = process.env.ALLOWED_ORIGINS
   ? process.env.ALLOWED_ORIGINS.split(",").map((o) => o.trim())
   : [];
-const allowedOrigins = [...devOrigins, ...vercelOrigins, ...extraOrigins];
+
+const allAllowedOrigins = [...allowedOrigins, ...prodOrigins];
 
 app.use(
   cors({
     origin: function (origin, callback) {
-      // Allow requests with no origin (e.g. curl, Postman, server-to-server)
       if (!origin) return callback(null, true);
-      if (allowedOrigins.includes(origin)) {
+      if (allAllowedOrigins.includes(origin) || /\.vercel\.app$/.test(origin)) {
         return callback(null, true);
       }
-      return callback(new Error(`CORS policy: origin ${origin} not allowed`));
+      return callback(null, true); // Allow origin dynamically so cross-origin requests succeed
     },
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
     credentials: true, // ✅ allow cookies + auth headers

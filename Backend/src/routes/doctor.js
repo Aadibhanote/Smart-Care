@@ -44,9 +44,12 @@ doctorRouter.post("/doctor/login" ,async(req,res)=>{
         if(!validPassword)  return res.status(404).json({message : "Invalid Credential !!"})
         
         const token = await doctor.getJWT();
-        if(!token) return res.json({message : "Something Wrong In Token While Creating Token!!"})
-        res.cookie("doctorToken" ,  token);
-        return res.json({message :" Login Sucessfull"})
+        res.cookie("doctorToken", token, {
+          httpOnly: true,
+          secure: true,
+          sameSite: "none",
+        });
+        return res.json({ success: true, message: "Login Successful", token });
 
     } catch (error) {
         return res.status(400).json({Error : error.message})

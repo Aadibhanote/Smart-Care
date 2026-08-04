@@ -89,8 +89,9 @@ const DoctorList = () => {
     try {
       setLoading(true);
       const token = localStorage.getItem("aToken");
+      const backendUrl = import.meta.env.VITE_URL || import.meta.env.VITE_BACKEND_URL || "http://localhost:8989";
       const response = await axios.get(
-        `${import.meta.env.VITE_URL}/api/admin/allDoctors`,
+        `${backendUrl}/api/admin/allDoctors`,
         {
           headers: { Authorization: `Bearer ${token}` },
           withCredentials: true,
@@ -115,8 +116,9 @@ const DoctorList = () => {
   const changeAvailability = async (docId) => {
     try {
       const token = localStorage.getItem("aToken");
+      const backendUrl = import.meta.env.VITE_URL || import.meta.env.VITE_BACKEND_URL || "http://localhost:8989";
       const response = await axios.post(
-        `${import.meta.env.VITE_URL}/api/admin/changeAvailability/${docId}`,
+        `${backendUrl}/api/admin/changeAvailability/${docId}`,
         {},
         {
           headers: { Authorization: `Bearer ${token}` },

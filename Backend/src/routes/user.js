@@ -411,8 +411,8 @@ userRouter.post("/login", async (req, res) => {
 
     res.cookie("userToken", token, {
       httpOnly: true,
-      secure: false, // set true for production HTTPS
-      sameSite: "lax",
+      secure: true,
+      sameSite: "none",
     });
 
     return res.status(200).json({

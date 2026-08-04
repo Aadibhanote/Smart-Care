@@ -55,9 +55,10 @@ const AddDoctor = () => {
     //   alert("Failed to add doctor.");
     // }
     try {
-  const token = localStorage.getItem("aToken");
-  const response = await axios.post(
-    `${import.meta.env.VITE_URL}/api/admin/add-doctor`,
+      const token = localStorage.getItem("aToken");
+      const backendUrl = import.meta.env.VITE_URL || import.meta.env.VITE_BACKEND_URL || "http://localhost:8989";
+      const response = await axios.post(
+        `${backendUrl}/api/admin/add-doctor`,
     {
       firstName,
       lastName: secondName,

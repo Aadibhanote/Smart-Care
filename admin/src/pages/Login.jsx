@@ -14,27 +14,36 @@ console.log("Backend URL:", import.meta.env.VITE_URL);
    e.preventDefault();
 
     try {
-     if(state === "Admin"){
-      const {data} =  await axios.post(import.meta.env.VITE_URL+"/api/admin/login",{email,password},{
-        withCredentials:true
-      });
-      console.log(data);
-      
-      if(data.success){
-        // console.log(data.token);
-        localStorage.setItem('aToken', data.token)
-        setAToken(data.token)
-        toast.success(data.message)
+      const backendUrl = import.meta.env.VITE_URL || import.meta.env.VITE_BACKEND_URL || "http://localhost:8989";
+      if (state === "Admin") {
+        const { data } = await axios.post(`${backendUrl}/api/admin/login`, { email, password }, {
+          withCredentials: true
+        });
         
-      }else{
-        toast.error(data.message)
+        if (data.success) {
+          localStorage.setItem('aToken', data.token);
+          setAToken(data.token);
+          toast.success(data.message || "Admin Login Successful");
+        } else {
+          toast.error(data.message || "Login failed");
+        }
+      } else {
+        const { data } = await axios.post(`${backendUrl}/api/doctor/doctor/login`, { email, password }, {
+          withCredentials: true
+        });
+
+        if (data.success) {
+          localStorage.setItem('dToken', data.token);
+          toast.success(data.message || "Doctor Login Successful");
+        } else {
+          toast.error(data.message || "Login failed");
+        }
       }
-     } 
     } catch (error) {
       console.log(error);
-      
+      toast.error(error.response?.data?.message || "Login failed. Please check credentials.");
     }
-   }
+   };
 
   return (
    <form onSubmit={handleSubmit} className='min-h-[80vh] flex items-center' >
