@@ -76,10 +76,10 @@ const AppContextProvider = (props) => {
 
   const fetchDoctors = async () => {
     try {
-      const response = await axios.get(import.meta.env.VITE_URL + "/api/user/doctors");
+      const backendUrl = import.meta.env.VITE_URL || import.meta.env.VITE_BACKEND_URL || "http://localhost:8989";
+      const response = await axios.get(`${backendUrl}/api/user/doctors`);
       console.log("✅ Full backend response:", response.data);
-      console.log("🌍 Backend URL:", import.meta.env.VITE_URL);
-
+      console.log("🌍 Backend URL:", backendUrl);
 
       // Adjust key name depending on your backend
       const fetchedDoctors = response.data.doctors || response.data.doctor || [];

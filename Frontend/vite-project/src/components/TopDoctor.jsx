@@ -10,8 +10,8 @@ const DoctorInfo = () => {
 
   const docInfo = async () => {
     try {
-      const response = await axios.get("http://localhost:8989/user/doctor/${Id}"
-        , {
+      const backendUrl = import.meta.env.VITE_URL || import.meta.env.VITE_BACKEND_URL || "http://localhost:8989";
+      const response = await axios.get(`${backendUrl}/api/user/doctor/${Id}`, {
         withCredentials: true,
       });
       setDoctor(response?.data?.doctorProfile || null);

@@ -436,9 +436,11 @@ const Myprofile = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await fetch(`${import.meta.env.VITE_URL}/api/user/profile`, {
+        const backendUrl = import.meta.env.VITE_URL || import.meta.env.VITE_BACKEND_URL || "http://localhost:8989";
+        const token = localStorage.getItem("userToken") || localStorage.getItem("token");
+        const res = await fetch(`${backendUrl}/api/user/profile`, {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`
+            Authorization: `Bearer ${token}`
           }
         });
 
@@ -483,11 +485,13 @@ const Myprofile = () => {
   // ---------------- SAVE ----------------
   const handleSave = async () => {
     try {
-      const res = await fetch(`${import.meta.env.VITE_URL}/api/user/profile`, {
+      const backendUrl = import.meta.env.VITE_URL || import.meta.env.VITE_BACKEND_URL || "http://localhost:8989";
+      const token = localStorage.getItem("userToken") || localStorage.getItem("token");
+      const res = await fetch(`${backendUrl}/api/user/profile`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`
+          Authorization: `Bearer ${token}`
         },
         body: JSON.stringify(editedData)
       });

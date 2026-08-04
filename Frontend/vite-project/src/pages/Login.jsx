@@ -101,9 +101,8 @@ const Login = () => {
   try {
     // Send login request to backend
   
-//http://localhost:8989/api/user/login
-// https://smart-care-v04m.onrender.com/api/user/login
-    const response = await fetch("http://localhost:8989/api/user/login" , {
+    const backendUrl = import.meta.env.VITE_URL || import.meta.env.VITE_BACKEND_URL || "http://localhost:8989";
+    const response = await fetch(`${backendUrl}/api/user/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -69,8 +69,8 @@ const handleTypeSelect = (type) => {
         registeredAt: new Date().toISOString()
       };
  
-  // "http://localhost:8989/api/user/registerDonation"
-      const response = await fetch( "http://localhost:8989/api/user/registerDonation ", {
+      const backendUrl = import.meta.env.VITE_URL || import.meta.env.VITE_BACKEND_URL || "http://localhost:8989";
+      const response = await fetch(`${backendUrl}/api/user/registerDonation`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

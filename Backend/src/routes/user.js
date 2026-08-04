@@ -356,6 +356,21 @@ userRouter.get("/doctors", async (req, res) => {
   }
 });
 
+// ✅ Public route: Fetch single doctor profile by ID
+userRouter.get("/doctor/:Id", async (req, res) => {
+  try {
+    const docId = req.params.Id;
+    const doctorProfile = await DoctorModel.findById(docId).select("-password");
+    if (!doctorProfile) {
+      return res.status(404).json({ success: false, message: "Doctor not found" });
+    }
+    return res.status(200).json({ success: true, doctorProfile });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: error.message });
+  }
+});
+
+
 // ✅ Signup
 userRouter.post("/signup", async (req, res) => {
   try {

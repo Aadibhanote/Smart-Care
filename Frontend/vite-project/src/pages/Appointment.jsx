@@ -259,9 +259,8 @@ const bookingData = {
     //   body: JSON.stringify(bookingData),
     // });
   
-    // http://localhost:8989/api/user/bookAppointment
-
-const response = await fetch(  "http://localhost:8989/api/user/bookAppointment", {
+const backendUrl = import.meta.env.VITE_URL || import.meta.env.VITE_BACKEND_URL || "http://localhost:8989";
+const response = await fetch(`${backendUrl}/api/user/bookAppointment`, {
   method: "POST",
   headers: {
     "Content-Type": "application/json",

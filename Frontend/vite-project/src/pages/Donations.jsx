@@ -34,10 +34,8 @@ const Donations = () => {
       try {
         setLoading(true);
         const token = localStorage.getItem("userToken");
-        const response = await fetch(
-          // http://localhost:8989/api/user/donations
-        "http://localhost:8989/api/user/donations",
-          {
+        const backendUrl = import.meta.env.VITE_URL || import.meta.env.VITE_BACKEND_URL || "http://localhost:8989";
+        const response = await fetch(`${backendUrl}/api/user/donations`, {
             method: "GET",
             headers: {
               "Content-Type": "application/json",

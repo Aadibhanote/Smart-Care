@@ -61,9 +61,8 @@ function Contact() {
   };
 
   try {
-    // "http://localhost:8989/api/contact"
-    // 
-    const res = await fetch("http://localhost:8989/api/contact", {
+    const backendUrl = import.meta.env.VITE_URL || import.meta.env.VITE_BACKEND_URL || "http://localhost:8989";
+    const res = await fetch(`${backendUrl}/api/contact`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),

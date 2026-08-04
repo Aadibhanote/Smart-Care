@@ -132,18 +132,18 @@ const handleSubmit = async (e) => {
     // http://localhost:8989/api/user/signup
     // https://smart-care-v04m.onrender.com/api/user/signup
     
-    //  "http://localhost:8989/api/user/signup"
-  const response = await fetch( "http://localhost:8989/api/user/signup", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({
-    firstName: formData.name,
-    lastName: formData.name.split(" ")[1] || "",
-    email: formData.email,
-    password: formData.password,
-    gender: formData.gender,
-  }),
-});
+    const backendUrl = import.meta.env.VITE_URL || import.meta.env.VITE_BACKEND_URL || "http://localhost:8989";
+    const response = await fetch(`${backendUrl}/api/user/signup`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        firstName: formData.name,
+        lastName: formData.name.split(" ")[1] || "",
+        email: formData.email,
+        password: formData.password,
+        gender: formData.gender,
+      }),
+    });
 
 const data = await response.json();
 
