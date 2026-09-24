@@ -68,6 +68,8 @@ npm install
 # Create a .env file in /server with necessary keys (e.g., DB URI, JWT secret, API keys)
 
 # Run the app
-npm run dev   # for backend
-cd User
-npm run dev     # for frontend
+cd backend  # for backend
+npm run dev   
+cd Frontend   # for frontend
+cd vite-project
+npm run dev    
