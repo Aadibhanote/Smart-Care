@@ -97,35 +97,35 @@ const userAuthMiddlware = async (req, res, next) => {
   try {
     let token;
 
-    // ✅ First priority: Authorization header (Bearer token)
+    // First priority: Authorization header (Bearer token)
     if (req.headers.authorization && req.headers.authorization.startsWith("Bearer")) {
       token = req.headers.authorization.split(" ")[1];
     }
 
-    // ✅ Fallback: check in cookies if not found in header
+    //  Fallback: check in cookies if not found in header
     if (!token && req.cookies?.userToken) {
       token = req.cookies.userToken;
     }
 
-    // ❌ No token found
+    // No token found
     if (!token) {
       return res.status(401).json({ message: "Access denied. No token provided." });
     }
 
-    // ✅ Verify token
+    // Verify token
     const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
 
     if (!decoded || !decoded.id) {
       return res.status(401).json({ message: "Invalid or expired token." });
     }
 
-    // ✅ Find user
+    // Find user
     const user = await UserModel.findById(decoded.id).select("-password");
     if (!user) {
       return res.status(404).json({ message: "User not found." });
     } 
 
-    // ✅ Attach to request
+    // Attach to request
     req.user = user;
     next();
   } catch (error) {

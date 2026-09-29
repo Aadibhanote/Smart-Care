@@ -99,7 +99,7 @@ const App = () => {
       <Navbar />
 
       <Routes>
-        {/* ✅ Public Routes */} 
+        {/*  Public Routes */} 
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/about" element={<About />} />
@@ -107,17 +107,14 @@ const App = () => {
         {/* <Route path="/donate" element={<Donate />} /> */}
        {/* <Route path="/donations" element={<Donations />} /> */}
 
-        {/* ✅ Home should be visible ONLY after login */}
-        <Route
-          path="/"
-          element={
-            <ProtectedRoute>
+        {/*  Home should be visible ONLY after login */}
+        <Route path="/"  element={<ProtectedRoute>
               <Home />
             </ProtectedRoute>
           }
         />
 
-        {/* ✅ Other Protected Routes */}
+        {/*  Other Protected Routes */}
         <Route
           path="/doctors"
           element={

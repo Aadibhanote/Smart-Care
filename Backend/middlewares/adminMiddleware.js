@@ -65,27 +65,27 @@ const jwt = require("jsonwebtoken");
 
 const adminMiddlewareRouter = (req, res, next) => {
   try {
-    // 1️⃣ Read token from cookie
+    // 1️ Read token from cookie
     let token = req.cookies?.adminToken;
 
-    // 2️⃣ If not in cookie, read from Authorization header
+    // 2 If not in cookie, read from Authorization header
     if (!token && req.headers.authorization?.startsWith("Bearer ")) {
       token = req.headers.authorization.split(" ")[1];
     }
 
-    // 3️⃣ No token found
+    // 3️No token found
     if (!token) {
       return res.status(401).json({ message: "Unauthorized: Token missing" });
     }
 
-    // 4️⃣ Verify token
+    // 4️Verify token
     const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
 
     if (!decoded || decoded.email !== process.env.ADMIN_EMAIL) {
       return res.status(401).json({ message: "Unauthorized: Invalid token" });
     }
 
-    // 5️⃣ Store admin details if needed
+    // 5️Store admin details if needed
     req.admin = decoded;
 
     next();

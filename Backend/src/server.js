@@ -158,11 +158,11 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const contactRouter = require("./routes/contact");
 
-// 🧩 Import custom modules
+//  Import custom modules
 const { ConnectMongoDB } = require("./config/database");
 const { connectCloudinary } = require("./config/cloudnary");
 
-// 🧩 Import all routers (named imports)
+//  Import all routers (named imports)
 const { adminRouter } = require("./routes/admin");
 const { doctorRouter } = require("./routes/doctor");
 const { userRouter } = require("./routes/user");
@@ -200,22 +200,22 @@ app.use(
       return callback(null, true); // Allow origin dynamically so cross-origin requests succeed
     },
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-    credentials: true, // ✅ allow cookies + auth headers
-    allowedHeaders: ["Content-Type", "Authorization"], // ✅ allow JWT headers
+    credentials: true, //  allow cookies + auth headers
+    allowedHeaders: ["Content-Type", "Authorization"], //  allow JWT headers
   })
 );
 
 
-// ✅ Middlewares
+//  Middlewares
 app.use(express.json());
 app.use(cookieParser());
 
-// ✅ Connect Cloudinary
+//  Connect Cloudinary
 connectCloudinary().catch((error) => {
   console.error(`Cloudinary connection error: ${error}`);
 });
 app.use(express.urlencoded({ extended: true }));
-// ✅ Mount routes
+//  Mount routes
 app.use("/api/appointments", appointmentRouter);
 app.use("/api/admin", adminRouter);
 app.use("/api/doctor", doctorRouter);
@@ -225,7 +225,7 @@ app.use("/api/contact", contactRouter);
 // app.use("/api/user", require("./routes/userRoutes"));
 
 
-// ✅ Connect MongoDB and Start Server
+// Connect MongoDB and Start Server
 ConnectMongoDB()
   .then(() => {
     console.log("✅ DB Connected Successfully!");

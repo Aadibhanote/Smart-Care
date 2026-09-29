@@ -67,7 +67,7 @@ function Navbar() {
   const [showMenu, setShowMenu] = useState(false);
   const [token, setToken] = useState(false);
 
-  // ✅ Check login status on page load (localStorage)
+  //  Check login status on page load (localStorage)
   useEffect(() => {
     const storedToken = localStorage.getItem('userToken');
     if (storedToken) {
@@ -75,7 +75,7 @@ function Navbar() {
     }
   }, []);
 
-  // ✅ Handle logout (backend + frontend)
+  //  Handle logout (backend + frontend)
   const handleLogout = async () => {
     try {
       const backendUrl = import.meta.env.VITE_URL || import.meta.env.VITE_BACKEND_URL || "http://localhost:8989";
@@ -84,7 +84,7 @@ function Navbar() {
         credentials: "include",
       });
 
-      // 2️⃣ Clear frontend data
+      // 2️ Clear frontend data
       localStorage.removeItem("userToken");
       localStorage.removeItem("userName");
       setToken(false);
