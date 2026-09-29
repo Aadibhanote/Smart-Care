@@ -24,12 +24,7 @@ SmartCare is a full-stack healthcare management platform designed to streamline 
 
 ---
 
-##  AI HealthCare Chatbot
-A powerful AI chatbot integrated into the system to provide round-the-clock help for users regarding:
-- Symptoms
-- First-aid suggestions
-- Appointment guidance
-- General health advice
+
 
 ---
 
@@ -57,9 +52,6 @@ A powerful AI chatbot integrated into the system to provide round-the-clock help
 ##  Installation
 
 ```bash
-# Clone the repository
-git clone https://github.com/harshsaini0707/Hospital-Management-System.git
-cd HackIndia-Spark-5.0-2025-Code-Healers
 
 
 # Install client dependencies
@@ -76,6 +68,8 @@ npm install
 # Create a .env file in /server with necessary keys (e.g., DB URI, JWT secret, API keys)
 
 # Run the app
-npm run dev   # for backend
-cd User
-npm run dev     # for frontend
+cd backend  # for backend
+npm run dev   
+cd Frontend   # for frontend
+cd vite-project
+npm run dev    
