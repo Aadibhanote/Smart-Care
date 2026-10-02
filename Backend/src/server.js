@@ -224,19 +224,30 @@ app.use("/api/user", userRouter);
 app.use("/api/requests", RequestRouter);
 app.use("/api/contact", contactRouter);
 app.use("/api/chatbot", chatbotRouter);
-// app.use("/api/user", require("./routes/userRoutes"));
 
+// Health check routes (crucial for Render/Vercel deployment health checks)
+app.get("/", (req, res) => {
+  res.status(200).json({ status: "OK", message: "SmartCare Backend API is running! 🚀" });
+});
+app.get("/health", (req, res) => {
+  res.status(200).json({ status: "healthy", timestamp: new Date().toISOString() });
+});
 
-// Connect MongoDB and Start Server
+// Start Server immediately so cloud platforms bind the port without timing out
+const server = app.listen(PORT, () => {
+  console.log(`🚀 Server started on port ${PORT}`);
+});
+
+// Connect MongoDB
 ConnectMongoDB()
   .then(() => {
     console.log("✅ DB Connected Successfully!");
-    app.listen(PORT, () => console.log(`🚀 Server started on port ${PORT}`));
   })
   .catch((error) => {
-    console.log(`❌ MongoDB Connection Error: ${error}`);
+    console.error(`❌ MongoDB Connection Error: ${error.message}`);
   });
-  module.exports=app;
+
+module.exports = app;
 
 
 // *********************************versel*************
