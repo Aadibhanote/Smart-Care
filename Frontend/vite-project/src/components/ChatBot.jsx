@@ -38,7 +38,8 @@ const ChatBot = () => {
 
     try {
       const backendUrl = import.meta.env.VITE_URL || import.meta.env.VITE_BACKEND_URL || "http://localhost:8989";
-      const history = messages.map((m) => ({
+      // Only send last 6 messages for faster responses
+      const history = messages.slice(-6).map((m) => ({
         role: m.role === "user" ? "user" : "model",
         content: m.content,
       }));
