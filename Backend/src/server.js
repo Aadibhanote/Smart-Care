@@ -157,6 +157,7 @@ const app = express();
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const contactRouter = require("./routes/contact");
+const chatbotRouter = require("./routes/chatbot");
 
 //  Import custom modules
 const { ConnectMongoDB } = require("./config/database");
@@ -222,6 +223,7 @@ app.use("/api/doctor", doctorRouter);
 app.use("/api/user", userRouter);
 app.use("/api/requests", RequestRouter);
 app.use("/api/contact", contactRouter);
+app.use("/api/chatbot", chatbotRouter);
 // app.use("/api/user", require("./routes/userRoutes"));
 
 

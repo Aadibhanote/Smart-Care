@@ -88,6 +88,7 @@ import AppContextProvider from "./context/AppContext";
 import Donate from "./pages/Donate";
 import Donations from "./pages/Donations";
 import MyDonations from "./pages/MyDonations";
+import ChatBot from "./components/ChatBot";
 
 
 const App = () => {
@@ -187,6 +188,7 @@ const App = () => {
       </Routes>
 
       <Footer />
+      <ChatBot />
     </div>
       </AppContextProvider>
   );
