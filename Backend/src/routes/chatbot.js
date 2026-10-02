@@ -31,16 +31,16 @@ chatbotRouter.post("/chat", async (req, res) => {
       return res.status(400).json({ success: false, message: "Message is required" });
     }
 
-    if (!process.env.GEMINI_API_KEY) {
+    if (!process.env.GEMINI_API_KEY || process.env.GEMINI_API_KEY === "YOUR_GEMINI_API_KEY_HERE") {
       return res.status(500).json({ 
         success: false, 
-        message: "Chatbot is not configured. Please set GEMINI_API_KEY environment variable." 
+        message: "Chatbot is not configured yet. The admin needs to add a valid GEMINI_API_KEY." 
       });
     }
 
     // Initialize Gemini lazily (only when API key is available)
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+    const model = genAI.getGenerativeModel({ model: "gemini-3.5-flash" });
 
     // Build conversation history for context
     const chatHistory = (history || []).map((msg) => ({
@@ -65,6 +65,15 @@ chatbotRouter.post("/chat", async (req, res) => {
     });
   } catch (error) {
     console.error("Chatbot error:", error.message);
+    
+    // Detect suspended/invalid API key
+    if (error.message && (error.message.includes("CONSUMER_SUSPENDED") || error.message.includes("403") || error.message.includes("API_KEY_INVALID"))) {
+      return res.status(500).json({
+        success: false,
+        message: "The chatbot API key is invalid or suspended. Please generate a new key at https://aistudio.google.com/apikey",
+      });
+    }
+    
     return res.status(500).json({
       success: false,
       message: "Sorry, I'm having trouble right now. Please try again later.",
